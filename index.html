@@ -537,65 +537,110 @@
         <!-- Section 5: Questions for Founders -->
         <section>
             <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">Vragen aan Founders</h2>
-            <div class="space-y-3">
+
+            <!-- PIN Gate -->
+            <div id="pin-gate" class="bg-dark-800 border border-dark-700 rounded-xl p-6 text-center mb-4">
+                <p class="text-white font-medium mb-2">Voer PIN in om vragen te beantwoorden</p>
+                <p class="text-xs text-dark-400 mb-4">Alleen Maarten en Taco kunnen antwoorden geven.</p>
+                <div class="flex justify-center gap-2 mb-3">
+                    <input type="password" id="pin-input" maxlength="4" placeholder="PIN" 
+                           class="w-24 text-center bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-white text-lg tracking-widest focus:outline-none focus:border-blue-500"
+                           onkeyup="if(event.key==='Enter')checkPin()">
+                </div>
+                <button onclick="checkPin()" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2 rounded-lg transition">Ontgrendel</button>
+                <p id="pin-error" class="text-red-400 text-xs mt-2 hidden">Onjuiste PIN</p>
+            </div>
+
+            <!-- Questions (hidden until PIN entered) -->
+            <div id="questions-area" class="space-y-3 hidden">
 
                 <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-start gap-3 mb-3">
                         <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
-                        <div>
+                        <div class="flex-1">
                             <p class="text-white text-sm font-medium">Welke naam kiezen we voor de AI Tutor?</p>
                             <p class="text-xs text-dark-400 mt-1">Opties: <strong>tutorranger</strong> of <strong>tutorroo</strong> (beide 7/7 domeinen beschikbaar). Nodig voor domein registratie en start development.</p>
                         </div>
                     </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="ai-tutor-naam" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'ai-tutor-naam')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
+                    </div>
                 </div>
 
                 <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-start gap-3 mb-3">
                         <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
-                        <div>
+                        <div class="flex-1">
                             <p class="text-white text-sm font-medium">Features + flow alignment voor AI Tutor</p>
                             <p class="text-xs text-dark-400 mt-1">Taco stelde voor: menu indeling, subscription flow, ouder-rapportage flow. Maarten: eerst framework/thema bepalen zodat LLM content genereert (geen handmatige content). Wanneer doen we deze sessie?</p>
                         </div>
                     </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="features-flow" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'features-flow')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
+                    </div>
                 </div>
 
                 <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-start gap-3 mb-3">
                         <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
-                        <div>
+                        <div class="flex-1">
                             <p class="text-white text-sm font-medium">Gamification thema/framework</p>
                             <p class="text-xs text-dark-400 mt-1">Maarten wil voorkomen dat we veel content moeten maken. Idee: een spelachtig framework waar het LLM alles zelf invult. Welk thema spreekt aan? (ruimte, jungle, ridders, etc.)</p>
                         </div>
                     </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="gamification-thema" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'gamification-thema')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
+                    </div>
                 </div>
 
                 <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-start gap-3 mb-3">
                         <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
-                        <div>
+                        <div class="flex-1">
                             <p class="text-white text-sm font-medium">Retool/Bubble account of standalone dashboard?</p>
                             <p class="text-xs text-dark-400 mt-1">Dashboard draait nu als static site. Willen jullie een Retool/Bubble account voor een meer dynamic versie, of is dit voldoende?</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
-                        <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
-                        <div>
-                            <p class="text-white text-sm font-medium">Email credentials voor himalaya</p>
-                            <p class="text-xs text-dark-400 mt-1">IMAP/SMTP credentials nodig om email functionaliteit in te stellen. Welk email account moet ik monitoren?</p>
-                        </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="retool-bubble" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'retool-bubble')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
                     </div>
                 </div>
 
                 <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-start gap-3 mb-3">
                         <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
-                        <div>
+                        <div class="flex-1">
+                            <p class="text-white text-sm font-medium">Email credentials voor himalaya</p>
+                            <p class="text-xs text-dark-400 mt-1">IMAP/SMTP credentials nodig om email functionaliteit in te stellen. Welk email account moet ik monitoren?</p>
+                        </div>
+                    </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="email-credentials" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'email-credentials')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
+                        <div class="flex-1">
                             <p class="text-white text-sm font-medium">Bot avatar via BotFather</p>
                             <p class="text-xs text-dark-400 mt-1">Moet handmatig gedaan worden via Telegram BotFather. Mr. Meeseeks robot avatar is al gegenereerd.</p>
                         </div>
+                    </div>
+                    <div class="answer-box mt-2">
+                        <textarea data-q="bot-avatar" rows="2" placeholder="Typ je antwoord hier..." 
+                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                        <button onclick="submitAnswer(this, 'bot-avatar')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
                     </div>
                 </div>
 
@@ -611,6 +656,27 @@
     </main>
 
     <script>
+        // Config
+        const ACCESS_TOKEN = 'WkyccDthF_1FAoTGVmw0FQ';
+        const PIN_HASH = '7482';
+        const BOT_USERNAME = 'meeseeks35_bot';
+        
+        // Check URL token
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get('key');
+        
+        if (urlToken !== ACCESS_TOKEN) {
+            document.querySelector('main').innerHTML = `
+                <div class="flex items-center justify-center min-h-[60vh]">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔒</div>
+                        <h2 class="text-xl font-semibold text-white mb-2">Toegang geweigerd</h2>
+                        <p class="text-dark-400 text-sm">Dit dashboard is alleen toegankelijk via de beveiligde link.</p>
+                    </div>
+                </div>
+            `;
+        }
+
         // Update timestamps
         const now = new Date().toLocaleString('nl-NL', { 
             day: 'numeric', month: 'long', year: 'numeric',
@@ -620,15 +686,99 @@
         document.getElementById('lastUpdate').textContent = now;
         document.getElementById('footerDate').textContent = now;
 
+        // PIN check
+        let pinVerified = false;
+        
+        // Check if PIN was previously verified (session storage)
+        if (sessionStorage.getItem('tama-pin-verified') === 'true') {
+            pinVerified = true;
+            document.getElementById('pin-gate').classList.add('hidden');
+            document.getElementById('questions-area').classList.remove('hidden');
+        }
+        
+        function checkPin() {
+            const pin = document.getElementById('pin-input').value;
+            if (pin === PIN_HASH) {
+                pinVerified = true;
+                sessionStorage.setItem('tama-pin-verified', 'true');
+                document.getElementById('pin-gate').classList.add('hidden');
+                document.getElementById('questions-area').classList.remove('hidden');
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+                document.getElementById('pin-input').value = '';
+                document.getElementById('pin-input').focus();
+                setTimeout(() => document.getElementById('pin-error').classList.add('hidden'), 2000);
+            }
+        }
+
+        // Submit answer via Telegram deeplink
+        function submitAnswer(btn, questionId) {
+            if (!pinVerified) return;
+            
+            const textarea = btn.parentElement.querySelector('textarea');
+            const answer = textarea.value.trim();
+            
+            if (!answer) {
+                textarea.classList.add('border-red-500');
+                setTimeout(() => textarea.classList.remove('border-red-500'), 1500);
+                return;
+            }
+
+            // Format message for Telegram
+            const questionTitle = btn.closest('.card').querySelector('.font-medium').textContent;
+            const message = `[Dashboard Antwoord]\n\nVraag: ${questionTitle}\nID: ${questionId}\n\nAntwoord: ${answer}`;
+            
+            // Open Telegram deeplink
+            const encoded = encodeURIComponent(message);
+            const telegramUrl = `https://t.me/${BOT_USERNAME}?text=${encoded}`;
+            
+            // Visual feedback
+            btn.textContent = 'Opening Telegram...';
+            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            btn.classList.add('bg-green-600');
+            
+            // Save locally as backup
+            const saved = JSON.parse(localStorage.getItem('tama-answers') || '{}');
+            saved[questionId] = { answer, timestamp: new Date().toISOString() };
+            localStorage.setItem('tama-answers', JSON.stringify(saved));
+            
+            // Open Telegram
+            window.open(telegramUrl, '_blank');
+            
+            // Reset button after delay
+            setTimeout(() => {
+                btn.textContent = 'Verstuurd ✓';
+                btn.classList.remove('bg-green-600');
+                btn.classList.add('bg-dark-600');
+            }, 1500);
+        }
+        
+        // Load saved answers from localStorage
+        function loadSavedAnswers() {
+            const saved = JSON.parse(localStorage.getItem('tama-answers') || '{}');
+            for (const [qId, data] of Object.entries(saved)) {
+                const textarea = document.querySelector(`textarea[data-q="${qId}"]`);
+                if (textarea && data.answer) {
+                    textarea.value = data.answer;
+                    textarea.classList.add('border-green-700');
+                    const btn = textarea.parentElement.querySelector('button');
+                    if (btn) {
+                        btn.textContent = 'Verstuurd ✓';
+                        btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                        btn.classList.add('bg-dark-600');
+                    }
+                }
+            }
+        }
+        loadSavedAnswers();
+
         // Project tab switching
         function showProject(id) {
-            // Hide all
             document.querySelectorAll('[id^="project-"]').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('[id^="tab-"]').forEach(el => {
                 el.classList.remove('tab-active');
                 el.classList.add('text-dark-400');
             });
-            // Show selected
             document.getElementById('project-' + id).classList.remove('hidden');
             const tab = document.getElementById('tab-' + id);
             tab.classList.add('tab-active');
