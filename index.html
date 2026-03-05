@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="nl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMA Factory Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .status-dot { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .card { transition: all 0.2s ease; }
+        .card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .tab-active { border-bottom: 2px solid #3b82f6; color: #3b82f6; }
+        .badge { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+    </style>
+</head>
+<body class="bg-dark-950 text-dark-200 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-dark-900 border-b border-dark-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-sm">T</div>
+                <div>
+                    <h1 class="text-lg font-semibold text-white">TAMA Factory</h1>
+                    <p class="text-xs text-dark-400">Dashboard v1.0</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 text-xs text-dark-400">
+                    <span class="status-dot w-2 h-2 bg-green-500 rounded-full inline-block"></span>
+                    <span>Meeseeks Online</span>
+                </div>
+                <span class="text-xs text-dark-500" id="lastUpdate"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+        <!-- Section 1: Projects Overview -->
+        <section>
+            <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">Projecten</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <!-- AI Tutor -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="badge bg-amber-900 text-amber-300">Actief</span>
+                        <span class="text-xs text-dark-500">MVP</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">AI Tutor</h3>
+                    <p class="text-xs text-dark-400 mb-3">NL basisonderwijs AI tutoring platform. Rekenen + Taal, groep 3-5.</p>
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-dark-700 rounded-full h-1.5">
+                            <div class="bg-amber-500 h-1.5 rounded-full" style="width: 35%"></div>
+                        </div>
+                        <span class="text-xs text-dark-400">35%</span>
+                    </div>
+                    <p class="text-xs text-dark-500 mt-2">Fase: Planning & Research</p>
+                </div>
+
+                <!-- Swipe & Swap -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="badge bg-purple-900 text-purple-300">Concept</span>
+                        <span class="text-xs text-dark-500">Research</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Swipe & Swap</h3>
+                    <p class="text-xs text-dark-400 mb-3">C2C swap/buy app met Tinder UX. EU markt.</p>
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-dark-700 rounded-full h-1.5">
+                            <div class="bg-purple-500 h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <span class="text-xs text-dark-400">100%</span>
+                    </div>
+                    <p class="text-xs text-dark-500 mt-2">Research compleet</p>
+                </div>
+
+                <!-- Injectables Platform -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="badge bg-purple-900 text-purple-300">Concept</span>
+                        <span class="text-xs text-dark-500">Research</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Injectables Platform</h3>
+                    <p class="text-xs text-dark-400 mb-3">Cosmetische klinieken booking platform. NL markt.</p>
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-dark-700 rounded-full h-1.5">
+                            <div class="bg-purple-500 h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <span class="text-xs text-dark-400">100%</span>
+                    </div>
+                    <p class="text-xs text-dark-500 mt-2">Research compleet</p>
+                </div>
+
+                <!-- Fortune Bazaar -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="badge bg-dark-600 text-dark-300">Idee</span>
+                        <span class="text-xs text-dark-500">Concept</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Fortune Bazaar</h3>
+                    <p class="text-xs text-dark-400 mb-3">Fortune cookie subscriptions. Concept fase.</p>
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-dark-700 rounded-full h-1.5">
+                            <div class="bg-dark-500 h-1.5 rounded-full" style="width: 5%"></div>
+                        </div>
+                        <span class="text-xs text-dark-400">5%</span>
+                    </div>
+                    <p class="text-xs text-dark-500 mt-2">Minimale documentatie</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: To-Do's per Project -->
+        <section>
+            <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">To-Do's per Project</h2>
+
+            <!-- Project Tabs -->
+            <div class="flex gap-4 border-b border-dark-700 mb-4 overflow-x-auto">
+                <button onclick="showProject('ai-tutor')" id="tab-ai-tutor" class="tab-active pb-2 text-sm font-medium whitespace-nowrap px-1">AI Tutor</button>
+                <button onclick="showProject('swipe-swap')" id="tab-swipe-swap" class="pb-2 text-sm font-medium text-dark-400 whitespace-nowrap px-1">Swipe & Swap</button>
+                <button onclick="showProject('injectables')" id="tab-injectables" class="pb-2 text-sm font-medium text-dark-400 whitespace-nowrap px-1">Injectables</button>
+                <button onclick="showProject('fortune')" id="tab-fortune" class="pb-2 text-sm font-medium text-dark-400 whitespace-nowrap px-1">Fortune Bazaar</button>
+            </div>
+
+            <!-- AI Tutor Todos -->
+            <div id="project-ai-tutor" class="space-y-4">
+                <!-- Development -->
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300">Development</span>
+                        <span class="text-xs text-dark-500">6 taken</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Naam selectie finaliseren (tutorranger/tutorroo)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Domein registreren (.nl + .com)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Firebase project aanmaken</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Next.js skeleton + shadcn/ui setup</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Auth flow (social login + 4-digit PIN)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-blue-500"> <span>Database schema ontwerp (Firestore)</span></label>
+                    </div>
+                </div>
+
+                <!-- Marketing -->
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-pink-900 text-pink-300">Marketing</span>
+                        <span class="text-xs text-dark-500">3 taken</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-pink-500"> <span>Brand identity ontwerp (logo, kleuren, fonts)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-pink-500"> <span>Landing page copy schrijven</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-pink-500"> <span>Schoolplein pitch deck voorbereiden</span></label>
+                    </div>
+                </div>
+
+                <!-- Legal -->
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-yellow-900 text-yellow-300">Legal</span>
+                        <span class="text-xs text-dark-500">4 taken</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-yellow-500"> <span>Privacy policy (GDPR + kinderen AVG)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-yellow-500"> <span>Terms of Service</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-yellow-500"> <span>DPIA (Data Protection Impact Assessment) voor minderjarigen</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-yellow-500"> <span>KvK registratie / bedrijfsstructuur bepalen</span></label>
+                    </div>
+                </div>
+
+                <!-- Finance -->
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-green-900 text-green-300">Finance</span>
+                        <span class="text-xs text-dark-500">3 taken</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Budget planning MVP (infra + API kosten)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Kostenmodel per gebruiker berekenen</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Funding strategie bepalen (bootstrap vs seed)</span></label>
+                    </div>
+                </div>
+
+                <!-- Support / Content -->
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-cyan-900 text-cyan-300">Content & Pedagogie</span>
+                        <span class="text-xs text-dark-500">3 taken</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-cyan-500"> <span>WIG 5 inhoudsopgave downloaden (groep 3-5)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-cyan-500"> <span>Taal Actief 5 inhoudsopgave downloaden (groep 3-5)</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-cyan-500"> <span>LLM prompt templates ontwerpen (opgaven generatie)</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swipe & Swap Todos -->
+            <div id="project-swipe-swap" class="space-y-4 hidden">
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-green-900 text-green-300">Finance</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm text-dark-400"><input type="checkbox" checked class="mt-1" disabled> <span class="line-through">Business plan schrijven</span></label>
+                        <label class="flex items-start gap-2 text-sm text-dark-400"><input type="checkbox" checked class="mt-1" disabled> <span class="line-through">Marktonderzoek EU</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Investor pitch deck maken</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Go/no-go beslissing</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Injectables Todos -->
+            <div id="project-injectables" class="space-y-4 hidden">
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-green-900 text-green-300">Finance</span>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 text-sm text-dark-400"><input type="checkbox" checked class="mt-1" disabled> <span class="line-through">Business plan schrijven</span></label>
+                        <label class="flex items-start gap-2 text-sm text-dark-400"><input type="checkbox" checked class="mt-1" disabled> <span class="line-through">Marktonderzoek NL</span></label>
+                        <label class="flex items-start gap-2 text-sm text-dark-400"><input type="checkbox" checked class="mt-1" disabled> <span class="line-through">Concurrentie analyse</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Investor pitch deck maken</span></label>
+                        <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Go/no-go beslissing</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fortune Bazaar Todos -->
+            <div id="project-fortune" class="space-y-4 hidden">
+                <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <p class="text-sm text-dark-400">Nog geen concrete taken gedefinieerd. Project is in concept fase.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: API Costs -->
+        <section>
+            <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">API Kosten & Credits</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                <!-- Anthropic -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-white font-semibold text-sm">Anthropic</h3>
+                        <span class="badge bg-green-900 text-green-300">Actief</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Model</span>
+                            <span class="text-white">Claude Opus 4.6</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Sessie kosten</span>
+                            <span class="text-white" id="anthropic-cost">$1.24</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Status</span>
+                            <span class="text-green-400">API Key actief</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OpenRouter -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-white font-semibold text-sm">OpenRouter</h3>
+                        <span class="badge bg-green-900 text-green-300">Actief</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Modellen</span>
+                            <span class="text-white">4 actief</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Beschikbaar</span>
+                            <span class="text-white">DeepSeek R1, V3.2, Llama 4, Gemma 3</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Sessie kosten</span>
+                            <span class="text-white" id="openrouter-cost">$0.01</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OpenAI -->
+                <div class="card bg-dark-800 border border-dark-700 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-white font-semibold text-sm">OpenAI</h3>
+                        <span class="badge bg-green-900 text-green-300">Actief</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Modellen</span>
+                            <span class="text-white">GPT 5.2, Codex</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Auth</span>
+                            <span class="text-white">OAuth (Codex)</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-dark-400">Sessie kosten</span>
+                            <span class="text-white" id="openai-cost">$0.01</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Brave Search -->
+            <div class="mt-4 bg-dark-800 border border-dark-700 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-white font-semibold text-sm">Brave Search API</h3>
+                    <span class="text-xs text-dark-400">Free Tier</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex-1">
+                        <div class="flex justify-between text-xs text-dark-400 mb-1">
+                            <span>Searches gebruikt</span>
+                            <span>~90 / 2,000</span>
+                        </div>
+                        <div class="bg-dark-700 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 4.5%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Sub-Agents -->
+        <section>
+            <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">Sub-Agents</h2>
+            <div class="bg-dark-800 border border-dark-700 rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-dark-900 text-dark-400 text-xs uppercase">
+                            <tr>
+                                <th class="text-left px-4 py-3">Agent</th>
+                                <th class="text-left px-4 py-3">Model</th>
+                                <th class="text-left px-4 py-3">Status</th>
+                                <th class="text-left px-4 py-3 hidden sm:table-cell">Kosten</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-dark-700">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="font-medium text-white">Main Agent</div>
+                                    <div class="text-xs text-dark-400">Primaire sessie</div>
+                                </td>
+                                <td class="px-4 py-3"><span class="badge bg-orange-900 text-orange-300">Claude Opus 4.6</span></td>
+                                <td class="px-4 py-3"><span class="flex items-center gap-1"><span class="status-dot w-2 h-2 bg-green-500 rounded-full"></span> Online</span></td>
+                                <td class="px-4 py-3 hidden sm:table-cell text-dark-300">$0.48</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="font-medium text-white">test-deepseek-r1-v2</div>
+                                    <div class="text-xs text-dark-400">Model test</div>
+                                </td>
+                                <td class="px-4 py-3"><span class="badge bg-indigo-900 text-indigo-300">DeepSeek R1</span></td>
+                                <td class="px-4 py-3"><span class="text-dark-400">Afgerond</span></td>
+                                <td class="px-4 py-3 hidden sm:table-cell text-dark-300">$0.006</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="font-medium text-white">test-deepseek-v32-v2</div>
+                                    <div class="text-xs text-dark-400">Model test</div>
+                                </td>
+                                <td class="px-4 py-3"><span class="badge bg-indigo-900 text-indigo-300">DeepSeek V3.2</span></td>
+                                <td class="px-4 py-3"><span class="text-dark-400">Afgerond</span></td>
+                                <td class="px-4 py-3 hidden sm:table-cell text-dark-300">$0.002</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="font-medium text-white">test-llama4-v2</div>
+                                    <div class="text-xs text-dark-400">Model test</div>
+                                </td>
+                                <td class="px-4 py-3"><span class="badge bg-violet-900 text-violet-300">Llama 4 Maverick</span></td>
+                                <td class="px-4 py-3"><span class="text-dark-400">Afgerond</span></td>
+                                <td class="px-4 py-3 hidden sm:table-cell text-dark-300">$0.002</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="font-medium text-white">test-codex-v2</div>
+                                    <div class="text-xs text-dark-400">Model test</div>
+                                </td>
+                                <td class="px-4 py-3"><span class="badge bg-emerald-900 text-emerald-300">GPT 5.2</span></td>
+                                <td class="px-4 py-3"><span class="text-dark-400">Afgerond</span></td>
+                                <td class="px-4 py-3 hidden sm:table-cell text-dark-300">$0.010</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="px-4 py-3 bg-dark-900 text-xs text-dark-400 flex justify-between">
+                    <span>Max concurrent: 8 sub-agents</span>
+                    <span>Actief: 0 | Totaal: 14 sessies</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Questions for Founders -->
+        <section>
+            <h2 class="text-sm font-semibold text-dark-400 uppercase tracking-wider mb-3">Vragen aan Founders</h2>
+            <div class="space-y-3">
+
+                <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Welke naam kiezen we voor de AI Tutor?</p>
+                            <p class="text-xs text-dark-400 mt-1">Opties: <strong>tutorranger</strong> of <strong>tutorroo</strong> (beide 7/7 domeinen beschikbaar). Nodig voor domein registratie en start development.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Features + flow alignment voor AI Tutor</p>
+                            <p class="text-xs text-dark-400 mt-1">Taco stelde voor: menu indeling, subscription flow, ouder-rapportage flow. Maarten: eerst framework/thema bepalen zodat LLM content genereert (geen handmatige content). Wanneer doen we deze sessie?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Gamification thema/framework</p>
+                            <p class="text-xs text-dark-400 mt-1">Maarten wil voorkomen dat we veel content moeten maken. Idee: een spelachtig framework waar het LLM alles zelf invult. Welk thema spreekt aan? (ruimte, jungle, ridders, etc.)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Retool/Bubble account of standalone dashboard?</p>
+                            <p class="text-xs text-dark-400 mt-1">Dashboard draait nu als static site. Willen jullie een Retool/Bubble account voor een meer dynamic versie, of is dit voldoende?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Email credentials voor himalaya</p>
+                            <p class="text-xs text-dark-400 mt-1">IMAP/SMTP credentials nodig om email functionaliteit in te stellen. Welk email account moet ik monitoren?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
+                        <div>
+                            <p class="text-white text-sm font-medium">Bot avatar via BotFather</p>
+                            <p class="text-xs text-dark-400 mt-1">Moet handmatig gedaan worden via Telegram BotFather. Mr. Meeseeks robot avatar is al gegenereerd.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-dark-500 py-8 border-t border-dark-800">
+            <p>TAMA International Factory Dashboard</p>
+            <p class="mt-1">Powered by Meeseeks on OpenClaw | Data snapshot: <span id="footerDate"></span></p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Update timestamps
+        const now = new Date().toLocaleString('nl-NL', { 
+            day: 'numeric', month: 'long', year: 'numeric',
+            hour: '2-digit', minute: '2-digit',
+            timeZone: 'Europe/Amsterdam'
+        });
+        document.getElementById('lastUpdate').textContent = now;
+        document.getElementById('footerDate').textContent = now;
+
+        // Project tab switching
+        function showProject(id) {
+            // Hide all
+            document.querySelectorAll('[id^="project-"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="tab-"]').forEach(el => {
+                el.classList.remove('tab-active');
+                el.classList.add('text-dark-400');
+            });
+            // Show selected
+            document.getElementById('project-' + id).classList.remove('hidden');
+            const tab = document.getElementById('tab-' + id);
+            tab.classList.add('tab-active');
+            tab.classList.remove('text-dark-400');
+        }
+    </script>
+
+</body>
+</html>
