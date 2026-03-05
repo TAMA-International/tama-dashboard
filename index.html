@@ -711,7 +711,7 @@
             }
         }
 
-        // Submit answer via Telegram deeplink
+        // Submit answer via Telegram share to group
         function submitAnswer(btn, questionId) {
             if (!pinVerified) return;
             
@@ -724,13 +724,13 @@
                 return;
             }
 
-            // Format message for Telegram
+            // Format message for Telegram - mention bot so it triggers in group
             const questionTitle = btn.closest('.card').querySelector('.font-medium').textContent;
-            const message = `[Dashboard Antwoord]\n\nVraag: ${questionTitle}\nID: ${questionId}\n\nAntwoord: ${answer}`;
+            const message = `@meeseeks35_bot [TAMA Dashboard Antwoord]\n\nVraag: ${questionTitle}\nAntwoord: ${answer}`;
             
-            // Open Telegram deeplink
+            // Use Telegram share URL - opens "send to" dialog where they pick the TAMA group
             const encoded = encodeURIComponent(message);
-            const telegramUrl = `https://t.me/${BOT_USERNAME}?text=${encoded}`;
+            const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent('https://tama-international.github.io/tama-dashboard/')}&text=${encoded}`;
             
             // Visual feedback
             btn.textContent = 'Opening Telegram...';
@@ -742,7 +742,7 @@
             saved[questionId] = { answer, timestamp: new Date().toISOString() };
             localStorage.setItem('tama-answers', JSON.stringify(saved));
             
-            // Open Telegram
+            // Open Telegram share dialog
             window.open(telegramUrl, '_blank');
             
             // Reset button after delay
