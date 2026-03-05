@@ -41,6 +41,11 @@
         .card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .tab-active { border-bottom: 2px solid #3b82f6; color: #3b82f6; }
         .badge { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+        .q-answered { opacity: 0.6; }
+        .q-answered:hover { opacity: 1; }
+        .q-collapsed .q-body { display: none; }
+        .q-collapsed .q-toggle-icon { transform: rotate(-90deg); }
+        .q-toggle-icon { transition: transform 0.2s ease; display: inline-block; }
     </style>
 </head>
 <body class="bg-dark-950 text-dark-200 min-h-screen">
@@ -551,93 +556,102 @@
                 <p id="pin-error" class="text-red-400 text-xs mt-2 hidden">Onjuiste PIN</p>
             </div>
 
+            <!-- Filter tabs -->
+            <div id="q-filters" class="flex gap-3 mb-4 hidden">
+                <button onclick="filterQuestions('all')" id="qf-all" class="text-xs font-medium px-3 py-1 rounded-full bg-dark-700 text-white">Alle (6)</button>
+                <button onclick="filterQuestions('open')" id="qf-open" class="text-xs font-medium px-3 py-1 rounded-full bg-dark-800 text-dark-400">Open</button>
+                <button onclick="filterQuestions('answered')" id="qf-answered" class="text-xs font-medium px-3 py-1 rounded-full bg-dark-800 text-dark-400">Beantwoord</button>
+            </div>
+
             <!-- Questions (hidden until PIN entered) -->
             <div id="questions-area" class="space-y-3 hidden">
 
-                <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
-                        <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
+                <div class="card bg-dark-800 border border-green-900/50 rounded-xl p-4 q-answered q-collapsed" data-qid="ai-tutor-naam" data-status="answered">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
+                        <span class="badge bg-green-900 text-green-300 mt-0.5">Beantwoord</span>
                         <div class="flex-1">
                             <p class="text-white text-sm font-medium">Welke naam kiezen we voor de AI Tutor?</p>
-                            <p class="text-xs text-dark-400 mt-1">Opties: <strong>tutorranger</strong> of <strong>tutorroo</strong> (beide 7/7 domeinen beschikbaar). Nodig voor domein registratie en start development.</p>
+                            <p class="text-xs text-green-400 mt-1">Antwoord: <strong>Tutorroo</strong> — Maarten, 5 maart 2026</p>
                         </div>
                     </div>
-                    <div class="answer-box mt-2">
-                        <textarea data-q="ai-tutor-naam" rows="2" placeholder="Typ je antwoord hier..." 
-                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
-                        <button onclick="submitAnswer(this, 'ai-tutor-naam')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
+                    <div class="q-body mt-3">
+                        <p class="text-xs text-dark-400">Opties waren: tutorranger of tutorroo (beide 7/7 domeinen beschikbaar). Domein wordt geregistreerd bij TransIP.</p>
                     </div>
                 </div>
 
-                <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
+                <div class="card bg-dark-800 border border-green-900/50 rounded-xl p-4 q-answered q-collapsed" data-qid="retool-bubble" data-status="answered">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
+                        <span class="badge bg-green-900 text-green-300 mt-0.5">Beantwoord</span>
+                        <div class="flex-1">
+                            <p class="text-white text-sm font-medium">Retool/Bubble account of standalone dashboard?</p>
+                            <p class="text-xs text-green-400 mt-1">Antwoord: <strong>Dit is voldoende</strong> — Taco, 5 maart 2026</p>
+                        </div>
+                    </div>
+                    <div class="q-body mt-3">
+                        <p class="text-xs text-dark-400">Huidige standalone GitHub Pages dashboard blijft. Geen Retool/Bubble account nodig.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark-800 border border-red-900/50 rounded-xl p-4" data-qid="features-flow" data-status="open">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
                         <span class="badge bg-red-900 text-red-300 mt-0.5">Blocker</span>
                         <div class="flex-1">
                             <p class="text-white text-sm font-medium">Features + flow alignment voor AI Tutor</p>
                             <p class="text-xs text-dark-400 mt-1">Taco stelde voor: menu indeling, subscription flow, ouder-rapportage flow. Maarten: eerst framework/thema bepalen zodat LLM content genereert (geen handmatige content). Wanneer doen we deze sessie?</p>
                         </div>
                     </div>
-                    <div class="answer-box mt-2">
+                    <div class="q-body mt-3">
                         <textarea data-q="features-flow" rows="2" placeholder="Typ je antwoord hier..." 
                                   class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
                         <button onclick="submitAnswer(this, 'features-flow')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
                     </div>
                 </div>
 
-                <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
+                <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4" data-qid="gamification-thema" data-status="open">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
                         <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
                         <div class="flex-1">
                             <p class="text-white text-sm font-medium">Gamification thema/framework</p>
                             <p class="text-xs text-dark-400 mt-1">Maarten wil voorkomen dat we veel content moeten maken. Idee: een spelachtig framework waar het LLM alles zelf invult. Welk thema spreekt aan? (ruimte, jungle, ridders, etc.)</p>
                         </div>
                     </div>
-                    <div class="answer-box mt-2">
+                    <div class="q-body mt-3">
                         <textarea data-q="gamification-thema" rows="2" placeholder="Typ je antwoord hier..." 
                                   class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
                         <button onclick="submitAnswer(this, 'gamification-thema')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
                     </div>
                 </div>
 
-                <div class="card bg-dark-800 border border-amber-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
-                        <span class="badge bg-amber-900 text-amber-300 mt-0.5">Input</span>
-                        <div class="flex-1">
-                            <p class="text-white text-sm font-medium">Retool/Bubble account of standalone dashboard?</p>
-                            <p class="text-xs text-dark-400 mt-1">Dashboard draait nu als static site. Willen jullie een Retool/Bubble account voor een meer dynamic versie, of is dit voldoende?</p>
-                        </div>
-                    </div>
-                    <div class="answer-box mt-2">
-                        <textarea data-q="retool-bubble" rows="2" placeholder="Typ je antwoord hier..." 
-                                  class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
-                        <button onclick="submitAnswer(this, 'retool-bubble')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
-                    </div>
-                </div>
-
-                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
+                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4" data-qid="email-credentials" data-status="open">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
                         <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
                         <div class="flex-1">
                             <p class="text-white text-sm font-medium">Email credentials voor himalaya</p>
                             <p class="text-xs text-dark-400 mt-1">IMAP/SMTP credentials nodig om email functionaliteit in te stellen. Welk email account moet ik monitoren?</p>
                         </div>
                     </div>
-                    <div class="answer-box mt-2">
+                    <div class="q-body mt-3">
                         <textarea data-q="email-credentials" rows="2" placeholder="Typ je antwoord hier..." 
                                   class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
                         <button onclick="submitAnswer(this, 'email-credentials')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
                     </div>
                 </div>
 
-                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4">
-                    <div class="flex items-start gap-3 mb-3">
+                <div class="card bg-dark-800 border border-blue-900/50 rounded-xl p-4" data-qid="bot-avatar" data-status="open">
+                    <div class="flex items-start gap-3 cursor-pointer" onclick="toggleQuestion(this.closest('.card'))">
+                        <span class="q-toggle-icon text-dark-400 mt-0.5">&#9660;</span>
                         <span class="badge bg-blue-900 text-blue-300 mt-0.5">Nice to have</span>
                         <div class="flex-1">
                             <p class="text-white text-sm font-medium">Bot avatar via BotFather</p>
                             <p class="text-xs text-dark-400 mt-1">Moet handmatig gedaan worden via Telegram BotFather. Mr. Meeseeks robot avatar is al gegenereerd.</p>
                         </div>
                     </div>
-                    <div class="answer-box mt-2">
+                    <div class="q-body mt-3">
                         <textarea data-q="bot-avatar" rows="2" placeholder="Typ je antwoord hier..." 
                                   class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 resize-none"></textarea>
                         <button onclick="submitAnswer(this, 'bot-avatar')" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">Verstuur via Telegram</button>
@@ -694,6 +708,8 @@
             pinVerified = true;
             document.getElementById('pin-gate').classList.add('hidden');
             document.getElementById('questions-area').classList.remove('hidden');
+            document.getElementById('q-filters').classList.remove('hidden');
+            updateFilterCounts();
         }
         
         function checkPin() {
@@ -703,6 +719,8 @@
                 sessionStorage.setItem('tama-pin-verified', 'true');
                 document.getElementById('pin-gate').classList.add('hidden');
                 document.getElementById('questions-area').classList.remove('hidden');
+                document.getElementById('q-filters').classList.remove('hidden');
+                updateFilterCounts();
             } else {
                 document.getElementById('pin-error').classList.remove('hidden');
                 document.getElementById('pin-input').value = '';
@@ -753,6 +771,40 @@
             }, 1500);
         }
         
+        // Toggle question collapse
+        function toggleQuestion(card) {
+            card.classList.toggle('q-collapsed');
+        }
+        
+        // Filter questions
+        function filterQuestions(filter) {
+            const cards = document.querySelectorAll('#questions-area .card');
+            cards.forEach(card => {
+                const status = card.dataset.status;
+                if (filter === 'all') card.style.display = '';
+                else if (filter === 'open') card.style.display = status === 'open' ? '' : 'none';
+                else if (filter === 'answered') card.style.display = status === 'answered' ? '' : 'none';
+            });
+            // Update active filter button
+            document.querySelectorAll('[id^="qf-"]').forEach(btn => {
+                btn.classList.remove('bg-dark-700', 'text-white');
+                btn.classList.add('bg-dark-800', 'text-dark-400');
+            });
+            const activeBtn = document.getElementById('qf-' + filter);
+            activeBtn.classList.remove('bg-dark-800', 'text-dark-400');
+            activeBtn.classList.add('bg-dark-700', 'text-white');
+        }
+        
+        // Update filter counts
+        function updateFilterCounts() {
+            const all = document.querySelectorAll('#questions-area .card').length;
+            const open = document.querySelectorAll('#questions-area .card[data-status="open"]').length;
+            const answered = document.querySelectorAll('#questions-area .card[data-status="answered"]').length;
+            document.getElementById('qf-all').textContent = `Alle (${all})`;
+            document.getElementById('qf-open').textContent = `Open (${open})`;
+            document.getElementById('qf-answered').textContent = `Beantwoord (${answered})`;
+        }
+
         // Load saved answers from localStorage
         function loadSavedAnswers() {
             const saved = JSON.parse(localStorage.getItem('tama-answers') || '{}');
