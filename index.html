@@ -44,6 +44,9 @@
         .q-answered { opacity: 0.6; }
         .q-answered:hover { opacity: 1; }
         .q-collapsed .q-body { display: none; }
+        .idea-item { border-left: 3px solid #3b82f6; }
+        .idea-item:hover .idea-delete { opacity: 1; }
+        .idea-delete { opacity: 0; transition: opacity 0.15s; }
         .q-collapsed .q-toggle-icon { transform: rotate(-90deg); }
         .q-toggle-icon { transition: transform 0.2s ease; display: inline-block; }
     </style>
@@ -282,6 +285,26 @@
                         <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-cyan-500"> <span>LLM prompt templates ontwerpen (opgaven generatie)</span></label>
                     </div>
                 </div>
+
+                <!-- Ideeënbox -->
+                <div class="bg-dark-800 border border-blue-900 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300">💡 Ideeënbox</span>
+                        <span class="text-xs text-dark-500">Voeg ideeën + toelichting toe</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <input id="idea-title-ai-tutor" type="text" placeholder="Idee..."
+                            class="flex-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500"
+                            onkeydown="if(event.key==='Enter')addIdea('ai-tutor')">
+                        <button onclick="addIdea('ai-tutor')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+                            + Toevoegen
+                        </button>
+                    </div>
+                    <textarea id="idea-note-ai-tutor" rows="2" placeholder="Optionele toelichting..."
+                        class="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 mb-3 resize-none"></textarea>
+                    <div id="ideas-list-ai-tutor" class="space-y-2"></div>
+                </div>
             </div>
 
             <!-- Swipe & Swap Todos -->
@@ -296,6 +319,26 @@
                         <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Investor pitch deck maken</span></label>
                         <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Go/no-go beslissing</span></label>
                     </div>
+                </div>
+
+                <!-- Ideeënbox -->
+                <div class="bg-dark-800 border border-blue-900 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300">💡 Ideeënbox</span>
+                        <span class="text-xs text-dark-500">Voeg ideeën + toelichting toe</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <input id="idea-title-swipe-swap" type="text" placeholder="Idee..."
+                            class="flex-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500"
+                            onkeydown="if(event.key==='Enter')addIdea('swipe-swap')">
+                        <button onclick="addIdea('swipe-swap')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+                            + Toevoegen
+                        </button>
+                    </div>
+                    <textarea id="idea-note-swipe-swap" rows="2" placeholder="Optionele toelichting..."
+                        class="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 mb-3 resize-none"></textarea>
+                    <div id="ideas-list-swipe-swap" class="space-y-2"></div>
                 </div>
             </div>
 
@@ -313,12 +356,52 @@
                         <label class="flex items-start gap-2 text-sm"><input type="checkbox" class="mt-1 accent-green-500"> <span>Go/no-go beslissing</span></label>
                     </div>
                 </div>
+
+                <!-- Ideeënbox -->
+                <div class="bg-dark-800 border border-blue-900 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300">💡 Ideeënbox</span>
+                        <span class="text-xs text-dark-500">Voeg ideeën + toelichting toe</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <input id="idea-title-injectables" type="text" placeholder="Idee..."
+                            class="flex-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500"
+                            onkeydown="if(event.key==='Enter')addIdea('injectables')">
+                        <button onclick="addIdea('injectables')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+                            + Toevoegen
+                        </button>
+                    </div>
+                    <textarea id="idea-note-injectables" rows="2" placeholder="Optionele toelichting..."
+                        class="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 mb-3 resize-none"></textarea>
+                    <div id="ideas-list-injectables" class="space-y-2"></div>
+                </div>
             </div>
 
             <!-- Fortune Bazaar Todos -->
             <div id="project-fortune" class="space-y-4 hidden">
                 <div class="bg-dark-800 border border-dark-700 rounded-xl p-4">
                     <p class="text-sm text-dark-400">Nog geen concrete taken gedefinieerd. Project is in concept fase.</p>
+                </div>
+
+                <!-- Ideeënbox -->
+                <div class="bg-dark-800 border border-blue-900 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="badge bg-blue-900 text-blue-300">💡 Ideeënbox</span>
+                        <span class="text-xs text-dark-500">Voeg ideeën + toelichting toe</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <input id="idea-title-fortune" type="text" placeholder="Idee..."
+                            class="flex-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500"
+                            onkeydown="if(event.key==='Enter')addIdea('fortune')">
+                        <button onclick="addIdea('fortune')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+                            + Toevoegen
+                        </button>
+                    </div>
+                    <textarea id="idea-note-fortune" rows="2" placeholder="Optionele toelichting..."
+                        class="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-blue-500 mb-3 resize-none"></textarea>
+                    <div id="ideas-list-fortune" class="space-y-2"></div>
                 </div>
             </div>
         </section>
@@ -884,6 +967,75 @@
             document.getElementById('qf-answered').textContent = `Beantwoord (${answered})`;
         }
 
+        // ── IDEEËNBOX ──────────────────────────────────────────────────────────
+        const IDEAS_KEY = 'tama-ideas-v1';
+
+        function loadIdeas() {
+            return JSON.parse(localStorage.getItem(IDEAS_KEY) || '{}');
+        }
+
+        function saveIdeas(data) {
+            localStorage.setItem(IDEAS_KEY, JSON.stringify(data));
+        }
+
+        function addIdea(projectId) {
+            const titleEl = document.getElementById('idea-title-' + projectId);
+            const noteEl  = document.getElementById('idea-note-' + projectId);
+            const title = titleEl.value.trim();
+            const note  = noteEl.value.trim();
+            if (!title) { titleEl.focus(); return; }
+
+            const ideas = loadIdeas();
+            if (!ideas[projectId]) ideas[projectId] = [];
+            ideas[projectId].unshift({ id: Date.now(), title, note, ts: new Date().toISOString() });
+            saveIdeas(ideas);
+
+            titleEl.value = '';
+            noteEl.value  = '';
+            renderIdeas(projectId);
+        }
+
+        function deleteIdea(projectId, id) {
+            const ideas = loadIdeas();
+            if (!ideas[projectId]) return;
+            ideas[projectId] = ideas[projectId].filter(i => i.id !== id);
+            saveIdeas(ideas);
+            renderIdeas(projectId);
+        }
+
+        function renderIdeas(projectId) {
+            const container = document.getElementById('ideas-list-' + projectId);
+            if (!container) return;
+            const ideas = (loadIdeas()[projectId] || []);
+            if (ideas.length === 0) {
+                container.innerHTML = '<p class="text-xs text-dark-500 italic">Nog geen ideeën toegevoegd.</p>';
+                return;
+            }
+            container.innerHTML = ideas.map(idea => `
+                <div class="idea-item bg-dark-900 rounded-lg p-3 flex gap-3 items-start">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-semibold text-white truncate">${escHtml(idea.title)}</span>
+                            <span class="text-xs text-dark-500 shrink-0">${new Date(idea.ts).toLocaleDateString('nl-NL')}</span>
+                        </div>
+                        ${idea.note ? `<p class="text-xs text-dark-400 mt-1">${escHtml(idea.note)}</p>` : ''}
+                    </div>
+                    <button class="idea-delete text-dark-500 hover:text-red-400 text-xs shrink-0" onclick="deleteIdea('${projectId}', ${idea.id})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function escHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function renderAllIdeas() {
+            document.querySelectorAll('[id^="ideas-list-"]').forEach(el => {
+                const projectId = el.id.replace('ideas-list-', '');
+                renderIdeas(projectId);
+            });
+        }
+
         // Load saved answers from localStorage
         function loadSavedAnswers() {
             const saved = JSON.parse(localStorage.getItem('tama-answers') || '{}');
@@ -902,6 +1054,7 @@
             }
         }
         loadSavedAnswers();
+        renderAllIdeas();
 
         // Project tab switching
         function showProject(id) {
